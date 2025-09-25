@@ -1,0 +1,96 @@
+:root {
+    --sih-blue: #0033a0;
+    --sih-orange: #ff9933;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121218;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    overflow: hidden;
+    position: relative;
+}
+.main-card {
+    background: rgba(30, 32, 40, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+/* Main "Securely Erase" button */
+.btn-sih-primary {
+    font-weight: 600; color: #fff;
+    background: linear-gradient(90deg, var(--sih-orange), var(--sih-blue));
+    border: none; transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+.btn-sih-primary:hover {
+    color: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+/* UPDATED: Directly overriding Bootstrap's default styles */
+.btn-outline-secondary, .form-select {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(40, 42, 50, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-outline-secondary:hover, .form-select:hover {
+    color: #fff !important;
+    background: rgba(55, 57, 65, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+#drive-select:disabled {
+    background-color: rgba(40, 42, 50, 0.5) !important;
+}
+
+.nav-pills .nav-link.active {
+    background: var(--sih-blue);
+}
+#log-output {
+    background-color: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    height: 150px;
+    overflow-y: scroll;
+}
+
+/* --- Glassmorphism Background Panels --- */
+.glass-panel {
+    position: absolute;
+    background: rgba(var(--red), var(--green), var(--blue), var(--alpha));
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    animation: moveGlass 0.5s infinite alternate;
+}
+
+.glass-panel-1 { --red: 255; --green: 50; --blue: 100; --alpha: 0.2; width: 350px; height: 350px; top: 10%; left: -5%; transform: rotate(20deg); animation-delay: 0s; }
+.glass-panel-2 { --red: 50; --green: 100; --blue: 255; --alpha: 0.2; width: 400px; height: 400px; bottom: 5%; right: -10%; transform: rotate(-30deg); animation-delay: 0.1s; }
+.glass-panel-3 { --red: 255; --green: 150; --blue: 0; --alpha: 0.15; width: 250px; height: 250px; top: 60%; left: 15%; transform: rotate(10deg); animation-delay: 0.2s; }
+.glass-panel-4 { --red: 0; --green: 200; --blue: 255; --alpha: 0.15; width: 300px; height: 300px; top: -10%; right: 20%; transform: rotate(40deg); animation-delay: 0.3s; }
+
+@keyframes moveGlass {
+    from { transform: translate(0, 0) rotate(var(--initial-rotation, 0deg)); }
+    to { transform: translate(5px, 5px) rotate(calc(var(--initial-rotation, 0deg) + 3deg)); }
+}
+
+.glass-panel-1 { --initial-rotation: 20deg; }
+.glass-panel-2 { --initial-rotation: -30deg; }
+.glass-panel-3 { --initial-rotation: 10deg; }
+.glass-panel-4 { --initial-rotation: 40deg; }

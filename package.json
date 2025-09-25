@@ -1,0 +1,38 @@
+{
+  "name": "certiwipe",
+  "version": "1.0.0",
+  "description": "Secure Drive Sanitization Tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.0.1",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "python-shell": "^5.0.0"
+  },
+  "build": {
+    "appId": "com.certiwipe.app",
+    "productName": "CertiWipe",
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "**/*",
+      "!sdelete64.exe"
+    ],
+    "extraResources": [
+      {
+        "from": "./sdelete64.exe",
+        "to": "sdelete64.exe"
+      }
+    ]
+  }
+}
