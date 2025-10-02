@@ -1,6 +1,6 @@
 <div align="center">
   <h1>CertiWipe 🛡️</h1>
-  <p><strong>Secure Data Erasure with Verifiable Proof.</strong></p>
+  <p><strong>Secure Data Erasure with a Verifiable, Tamper-Proof Audit Trail.</strong></p>
 </div>
 
 ---
@@ -37,7 +37,7 @@ In an age where data is currency, simply "deleting" a file is not enough. Standa
 * ### 📄 **Tamper-Proof Certificates**
     This is the core of CertiWipe's commitment to trust and verification.
     * **Cryptographic Signature:** Every PDF certificate is digitally signed using the modern and highly secure **Ed25519** algorithm.
-    * **Guaranteed Authenticity:** The signature is generated using a private key 🔑 stored securely within the application's environment. This means only CertiWipe can produce a valid certificate, making forgery impossible.
+    * **Guaranteed Authenticity:** The signature is generated using a private key. On first run, the application automatically generates a unique key pair (`private_key.pem` and `public_key.pem`) if one doesn't exist, ensuring your installation has a unique signature identity.
     * **Undeniable Audit Trail:** The certificate serves as a permanent, verifiable record of the sanitization event, perfect for corporate data disposal policies, IT asset decommissioning, or simply proving a sensitive file was destroyed.
 
 * ### 🖥️ **Modern & User-Friendly Interface**
@@ -45,17 +45,28 @@ In an age where data is currency, simply "deleting" a file is not enough. Standa
 
 ---
 
+## 🖼️ Application Showcase
+
+**Main Interface:**
+*(A screenshot of the main application window showing the three tabs for Files, Folder, and Drive Free Space would be perfect here.)*
+![CertiWipe UI](placeholder.png "CertiWipe Main Interface")
+
+**Process Demo:**
+*(A GIF showing the process: selecting a file, clicking erase, seeing the log update, and the 'Download Certificate' button appearing would be very effective.)*
+
+---
+
 ## 💻 Technology Deep Dive
 
 CertiWipe's architecture was strategically chosen to combine a rich user interface with a powerful backend for processing and cryptography.
 
-| Category                | Technology / Library                                                              | Purpose                                                     |
-| ----------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| **Frontend** | **Electron**, HTML5, CSS3, Bootstrap 5                                            | Creates the native desktop experience and responsive UI.    |
+| Category | Technology / Library | Purpose |
+| :--- | :--- | :--- |
+| **Frontend** | **Electron**, HTML5, CSS3, Bootstrap 5 | Creates the native desktop experience and responsive UI. |
 | **Backend** | **Python** | Handles core logic, file system operations, and generation. |
-| **Communication Bridge** | `python-shell` (Node.js)                                                          | Manages the seamless, real-time communication between Electron and Python. |
-| **Core Wiping Utility** | Microsoft Sysinternals `sdelete64.exe`                                            | The engine for performing the secure data overwrite.        |
-| **PDF & Cryptography** | `reportlab` (Python)<br>`cryptography` (Python)                                 | For dynamically creating PDF certificates and applying Ed25519 digital signatures. |
+| **Communication Bridge** | `python-shell` (Node.js) | Manages the seamless, real-time communication between Electron and Python. |
+| **Core Wiping Utility** | Microsoft Sysinternals `sdelete64.exe` | The engine for performing the secure data overwrite. |
+| **PDF & Cryptography** | `reportlab` (Python)<br>`cryptography` (Python) | For dynamically creating PDF certificates and applying Ed25519 digital signatures. |
 
 This **Electron + Python** stack allows us to leverage the best of both worlds: JavaScript's ecosystem for beautiful user interfaces and Python's robust libraries for complex tasks like PDF generation and high-security cryptography.
 
@@ -74,32 +85,60 @@ Before you begin, ensure you have the following installed:
 
 1.  **Clone the Repository**
     ```sh
-    git clone [https://github.com/dasher/certiwipe.git](https://github.com/dasher/certiwipe.git)
-    cd certiwipe
+    git clone [https://github.com/dasher06/CertiWipe.git](https://github.com/dasher06/CertiWipe.git)
+    cd CertiWipe
     ```
 
-2.  **Install Node.js Dependencies**
+2.  **Download Core Utility**
+    Download `sdelete64.exe` from the official Microsoft Sysinternals website and place it in the root directory of the project. Due to licensing, it is not included in the repository.
+
+3.  **Install Node.js Dependencies**
     This will install Electron and other necessary packages.
     ```sh
     npm install
     ```
 
-3.  **Create and Install Python Dependencies**
-    First, create a file named `requirements.txt` in the root of the project with the following content:
-    ```txt
-    cryptography
-    reportlab
-    ```
-    Now, run the installer:
+4.  **Install Python Dependencies**
+    The required Python packages are listed in `requirements.txt`.
     ```sh
     pip install -r requirements.txt
     ```
     > **Note:** It's highly recommended to do this within a Python virtual environment.
 
-### Running the Application
+### ⚠️ Important Security Notice
+
+The application automatically generates a `private_key.pem` and `public_key.pem` in the root directory if they don't exist.
+
+* **DO NOT commit `private_key.pem` to a public repository.** This key is the secret that guarantees your certificates are authentic. If it is exposed, anyone can forge certificates.
+* Ensure your `.gitignore` file includes `private_key.pem` to prevent accidental commits.
+
+### Running in Development
 
 To run the application in development mode, execute the following command in your terminal.
 **Important:** For wiping drive free space and some protected files, you may need to run your terminal as an **Administrator**.
 
 ```sh
 npm start
+```
+
+### Building for Production
+
+You can build a distributable .exe installer for Windows using Electron Builder.
+
+1.  Ensure `sdelete64.exe` is present in the root of your project directory. The builder is configured to package it for you.
+2.  Run the build command:
+    ```sh
+    npm run build
+    ```
+3.  The completed installer will be located in the `dist` folder.
+
+---
+
+## 🔮 Future Roadmap
+
+CertiWipe is currently a fully functional proof-of-concept. Future enhancements could include:
+
+* **Built-in Certificate Verifier:** An in-app tool to drag-and-drop a certificate and verify its signature against the public key.
+* **Customizable Wipe Passes:** Allow users to select the number of overwrite passes (e.g., 1, 3, 7).
+* **Cross-Platform Support:** Adapt the application for macOS and Linux using native secure-delete utilities like `srm` or `shred`.
+* **Centralized Settings:** A settings panel to manage preferences and view the public key.
