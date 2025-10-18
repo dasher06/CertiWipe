@@ -45,17 +45,6 @@ In an age where data is currency, simply "deleting" a file is not enough. Standa
 
 ---
 
-## 🖼️ Application Showcase
-
-**Main Interface:**
-*(A screenshot of the main application window showing the three tabs for Files, Folder, and Drive Free Space would be perfect here.)*
-
-
-**Process Demo:**
-*(A GIF showing the process: selecting a file, clicking erase, seeing the log update, and the 'Download Certificate' button appearing would be very effective.)*
-
----
-
 ## 💻 Technology Deep Dive
 
 CertiWipe's architecture was strategically chosen to combine a rich user interface with a powerful backend for processing and cryptography.
